@@ -1,0 +1,692 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Automail Trailer</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<style>
+/* Układ: ciemna scena z widokiem 3D okna rozszerzenia (warstwy odklejają się w osi Z), napisy w stylu zwiastuna po lewej-dole. */
+:root {
+  --bg0: #ffffff; --bg1: #e9f0ff; --glow: #3d7dff; --text: #1d1d1f; --muted: #6e6e73;
+  --card: #ffffff; --line: #dadce0; --ink: #202124; --soft: #5f6368; --blue: #1a73e8;
+  --font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Segoe UI", Roboto, Arial, sans-serif;
+  --ui: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color-scheme: light;
+}
+html, body { height: 100%; }
+body { margin: 0; background: radial-gradient(1100px 700px at 70% 30%, var(--bg1), var(--bg0) 70%), var(--bg0); color: var(--text); font-family: var(--font); overflow: hidden; }
+.blob { position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; }
+.blob.a { width: 46vmax; height: 46vmax; left: -12vmax; top: -16vmax; background: #cfe0ff; opacity: .7; }
+.blob.b { width: 38vmax; height: 38vmax; right: -10vmax; bottom: -14vmax; background: #e4d8ff; opacity: .6; }
+.scene { position: fixed; inset: 0; perspective: 1700px; perspective-origin: 50% 45%; }
+.stage { position: absolute; left: 50%; top: 38%; width: 592px; height: 500px; margin: -250px 0 0 -296px; transform-style: preserve-3d; will-change: transform; }
+.layer { position: absolute; box-sizing: border-box; background: var(--card); color: var(--ink); font-family: var(--ui); font-size: 13px; overflow: hidden; will-change: transform, opacity; backface-visibility: hidden; }
+.layer svg { display: block; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* --- warstwy interfejsu --- */
+#L-base { left: 0; top: 0; width: 592px; height: 500px; }
+.hdr { display: flex; align-items: center; gap: 12px; height: 60px; padding: 0 18px; border-bottom: 1px solid var(--line); }
+.logo { width: 36px; height: 36px; border-radius: 9px; overflow: hidden; display: block; } .logo img { display: block; width: 100%; height: 100%; }
+.hdr b { display: block; font-size: 15px; } .hdr small { color: var(--soft); font-size: 11px; }
+#L-folders { left: 0; top: 60px; width: 72px; height: 394px; background: #f1f3f4; text-align: center; }
+.f-title { padding: 9px 0 7px; font-size: 11px; font-weight: 600; color: var(--soft); }
+.ft { display: grid; gap: 3px; justify-items: center; align-content: center; height: 58px; font-size: 11px; font-weight: 600; margin-bottom: 2px; }
+.ft small { font-size: 8.5px; letter-spacing: .04em; text-transform: uppercase; opacity: .75; }
+.f-new { position: absolute; left: 0; right: 0; bottom: 0; padding: 10px 0; border-top: 1px solid var(--line); color: var(--blue); font-size: 11px; font-weight: 600; display: grid; justify-items: center; gap: 2px; }
+#L-groups { left: 72px; top: 60px; width: 150px; height: 394px; border-right: 1px solid var(--line); }
+.g-title { padding: 10px 12px 6px; margin-top: 48px; font-size: 11px; color: var(--soft); }
+.gt { display: flex; align-items: center; gap: 10px; height: 44px; padding: 0 12px; color: #fff; font-weight: 600; font-size: 13px; }
+.g-new { position: absolute; left: 0; right: 0; bottom: 0; padding: 13px 14px; border-top: 1px solid var(--line); color: var(--blue); font-weight: 600; display: flex; gap: 8px; align-items: center; }
+#L-main { left: 72px; top: 60px; width: 150px; height: 48px; display: flex; align-items: center; gap: 10px; padding: 0 12px; border-bottom: 1px solid var(--line); color: rgba(32,33,36,.6); }
+#L-main small { display: block; font-size: 10.5px; font-weight: 600; } #L-main b { display: block; font-size: 12.5px; }
+#L-editor { left: 222px; top: 60px; width: 370px; height: 394px; padding: 14px 16px; }
+.lbl { display: flex; align-items: center; justify-content: space-between; font-weight: 600; font-size: 12px; height: 28px; }
+.btnw { display: inline-flex; gap: 5px; align-items: center; height: 26px; padding: 0 9px; border: 1px solid var(--line); border-radius: 7px; font-size: 12px; font-weight: 600; color: #2b579a; }
+.pen { width: 26px; height: 26px; border: 1px solid var(--line); border-radius: 7px; display: inline-grid; place-items: center; margin-left: 6px; color: var(--soft); }
+.ta { margin-top: 8px; height: 204px; border: 2px solid #b66bd0; background: #f3e6f8; border-radius: 10px; padding: 10px 12px; font-size: 13px; line-height: 1.5; color: #2a2a31; }
+.row { display: flex; gap: 10px; margin-top: 76px; }
+.b1 { flex: 1; height: 36px; border-radius: 9px; background: var(--blue); color: #fff; display: grid; place-items: center; font-weight: 600; }
+.b2 { flex: 1; height: 36px; border-radius: 9px; border: 1px solid var(--line); color: var(--blue); display: grid; place-items: center; font-weight: 600; }
+.ok { margin-top: 8px; font-size: 11.5px; color: #188038; }
+#L-word { left: 238px; top: 352px; width: 148px; height: 26px; border: 1px solid #c5d3ef; background: #eef3fd; color: #2b579a; border-radius: 13px; display: flex; align-items: center; gap: 6px; padding: 0 6px 0 9px; font-weight: 600; font-size: 11.5px; }
+#L-word i { margin-left: auto; width: 15px; height: 15px; border-radius: 50%; background: #2b579a; color: #fff; font-style: normal; display: grid; place-items: center; font-size: 12px; }
+#L-drawer { left: 72px; top: 60px; width: 150px; height: 48px; background: transparent; overflow: hidden; }
+.dpanel { position: absolute; right: 0; top: 0; bottom: 0; width: 150px; display: flex; background: #202124; color: #fff; border-radius: 0; }
+.dpanel .h { width: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; background: linear-gradient(90deg, #5f6368, #202124); }
+.dpanel .h i { width: 2px; height: 2px; border-radius: 50%; background: rgba(255,255,255,.65); }
+.dpanel .t { padding: 0 8px 0 12px; display: flex; flex-direction: column; justify-content: center; font-weight: 600; font-size: 12.5px; white-space: nowrap; }
+.dpanel .t small { font-weight: 500; font-size: 10.5px; color: rgba(255,255,255,.65); }
+#L-foot { left: 0; top: 454px; width: 592px; height: 46px; background: #f8f9fa; border-top: 1px solid var(--line); display: flex; gap: 10px; align-items: center; padding: 0 18px; font-size: 11px; line-height: 1.35; color: var(--soft); }
+
+/* --- opisy ze znacznikami --- */
+#co { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+#co line { stroke: #1d1d1f; stroke-width: 1.5; stroke-linecap: round; }
+#co .ring { fill: none; stroke: #1d1d1f; stroke-width: 1; }
+#co .dot { fill: #1d1d1f; stroke: #fff; stroke-width: 2; }
+#co { filter: drop-shadow(0 0 1.5px rgba(255,255,255,.95)); }
+.note { position: fixed; left: 0; top: 0; width: 230px; opacity: 0; pointer-events: none; font-family: var(--font); }
+.note b { display: block; font-size: 17px; font-weight: 600; letter-spacing: -.015em; color: #1d1d1f; }
+.note span { display: block; margin-top: 4px; font-size: 13.5px; line-height: 1.4; letter-spacing: -.005em; color: #6e6e73; }
+.ctl { position: fixed; right: max(16px, env(safe-area-inset-right, 0px)); top: max(14px, env(safe-area-inset-top, 0px)); display: flex; gap: 8px; z-index: 5; }
+.ctl button { font: 600 13px var(--font); color: var(--muted); background: rgba(0,0,0,.04); border: 1px solid rgba(0,0,0,.12); border-radius: 999px; padding: 7px 14px; cursor: pointer; }
+.ctl button:hover { color: var(--text); background: rgba(0,0,0,.09); }
+:focus-visible { outline: 2px solid #1a73e8; outline-offset: 2px; }
+.bar { position: fixed; left: 0; right: 0; bottom: 0; height: 3px; background: rgba(0,0,0,.06); }
+.bar i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, #6da7ff, #b48cff); }
+
+/* --- finał: okno Gmaila --- */
+#gm { position: fixed; inset: 0; z-index: 2; background: #f6f8fc; opacity: 0; pointer-events: none; font-family: "Google Sans", Roboto, "Segoe UI", Arial, sans-serif; color: #202124; will-change: opacity, transform; }
+#gm svg { display: block; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.gtop { height: 58px; display: flex; align-items: center; gap: 24px; padding: 0 20px; }
+.gl { font-size: 22px; color: #5f6368; } .gs { flex: 0 1 560px; height: 40px; border-radius: 20px; background: #eaf1fb; }
+.gwrap { position: absolute; left: 0; right: 0; top: 74px; bottom: 0; display: flex; justify-content: center; align-items: flex-start; padding-top: 4vh; }
+.gwin { width: min(760px, 92vw); background: #fff; border-radius: 14px; box-shadow: 0 18px 60px rgba(18,28,60,.22), 0 2px 8px rgba(18,28,60,.1); }
+.gbar { display: flex; justify-content: space-between; align-items: center; height: 42px; padding: 0 16px; background: #404040; color: #fff; font-size: 14px; font-weight: 500; border-radius: 14px 14px 0 0; }
+.grow { display: flex; align-items: center; gap: 12px; min-height: 46px; padding: 6px 16px; border-bottom: 1px solid #e8eaed; font-size: 14px; }
+.glab { width: 44px; color: #5f6368; flex: none; } .gph { color: #202124; }
+.gto { flex-wrap: wrap; align-items: center; }
+.gchips { display: flex; flex-wrap: wrap; gap: 6px; flex: 1 1 200px; min-width: 0; }
+.gchip { display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px 0 3px; border: 1px solid #dadce0; border-radius: 14px; font-size: 13px; opacity: 0; }
+.gchip i { width: 22px; height: 22px; border-radius: 50%; color: #fff; font-style: normal; font-size: 12px; font-weight: 600; display: grid; place-items: center; }
+.gpickwrap { position: relative; margin-left: auto; }
+.gpill { font: 500 12px/18px "Google Sans", Roboto, Arial, sans-serif; padding: 3px 10px; border-radius: 14px; border: 1px solid #dadce0; background: #fff; color: #1a73e8; }
+.gpop { position: absolute; right: 0; top: 34px; width: min(400px, 82vw); display: flex; background: #fff; border: 1px solid #dadce0; border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,.22); opacity: 0; z-index: 3; overflow: hidden; font-size: 13px; }
+.gl1 { width: 78px; flex: none; background: #f1f3f4; border-right: 1px solid #dadce0; }
+.gk { padding: 10px 4px 6px; font-size: 11px; font-weight: 600; text-align: center; color: #5f6368; }
+.gf { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; min-height: 52px; padding: 6px 4px; border-bottom: 2px solid #f1f3f4; text-align: center; font-size: 11px; font-weight: 600; line-height: 1.15; }
+.gf small { font-size: 9px; font-weight: 700; text-transform: uppercase; opacity: .75; }
+.gr1 { flex: 1; min-width: 0; padding-bottom: 6px; }
+.gh { padding: 10px 12px 6px; font-size: 12px; font-weight: 600; color: #5f6368; }
+.gpr { display: flex; align-items: center; gap: 8px; padding: 6px 12px; }
+.gb { width: 24px; height: 24px; flex: none; display: inline-flex; align-items: center; justify-content: center; border-radius: 4px; color: #fff; }
+.gn { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } .gc { color: #5f6368; font-size: 12px; }
+.gph { color: #202124; }
+.gbody { min-height: 150px; padding: 16px; font-size: 14px; line-height: 1.5; color: #3c4043; }
+.gfoot { padding: 10px 16px 16px; } .gsend { display: inline-block; padding: 9px 22px; border-radius: 18px; background: #0b57d0; color: #fff; font-size: 14px; font-weight: 500; }
+
+/* --- tryb próbny: działające okno --- */
+body:not(.live) .stage { pointer-events: none; }
+.live #L-word { display: none; }
+#L-drawer { pointer-events: none; } .dpanel { pointer-events: auto; cursor: grab; touch-action: none; }
+.live .ft, .live .gt, #L-main, .f-new, .g-new { cursor: pointer; }
+.live .ft:hover, .live .gt:hover { filter: brightness(1.06); }
+.live .f-new:hover, .live .g-new:hover { background: #f6f9fe; }
+#L-main:hover { background: #f8f9fa; }
+.f-list { position: absolute; left: 0; right: 0; top: 30px; bottom: 64px; overflow-y: auto; scrollbar-width: none; }
+.g-list { position: absolute; left: 0; right: 0; top: 80px; bottom: 46px; overflow-y: auto; scrollbar-width: none; }
+.ft, .gt { cursor: pointer; }
+button.btnw, button.pen, button.b2 { background: #fff; font-family: inherit; cursor: pointer; }
+button.btnw:hover, button.pen:hover, button.b2:hover { background: #f6f9fe; }
+button.b1 { border: 0; font-family: inherit; font-size: 13px; cursor: pointer; } button.b1:hover { background: #1558b0; }
+textarea.ta { display: block; width: 100%; box-sizing: border-box; height: 228px; resize: none; outline: none; font-family: inherit; }
+textarea.ta:focus { box-shadow: 0 0 0 2px rgba(26,115,232,.2); }
+.chips { position: absolute; left: 16px; top: 292px; width: 338px; height: 28px; display: none; gap: 6px; overflow: hidden; }
+.live .chips { display: flex; }
+.wc { flex: none; max-width: 170px; display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 6px 0 9px; border: 1px solid #c5d3ef; background: #eef3fd; color: #2b579a; border-radius: 13px; font-weight: 600; font-size: 11.5px; white-space: nowrap; }
+.wc i { margin-left: 2px; width: 15px; height: 15px; border-radius: 50%; background: #2b579a; color: #fff; font-style: normal; display: grid; place-items: center; font-size: 12px; cursor: pointer; }
+#hint { position: fixed; left: 50%; bottom: 22px; transform: translateX(-50%); z-index: 6; padding: 9px 18px; border-radius: 999px; background: rgba(29,29,31,.88); color: #f5f5f7; font: 500 13px var(--font); white-space: nowrap; max-width: 92vw; overflow: hidden; text-overflow: ellipsis; opacity: 0; transition: opacity .35s; pointer-events: none; }
+#hint.show { opacity: 1; }
+#lpanel svg { display: block; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+#lpanel { position: absolute; left: 10px; bottom: 56px; width: 300px; max-height: 372px; overflow-y: auto; background: #fff; border: 1px solid #dadce0; border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,.25); transform: translateZ(4px); color: #202124; }
+
+.ctl { transition: opacity .4s; } body.intro .ctl { opacity: 0; pointer-events: none; }
+/* --- intro (tylko przy pierwszym odtworzeniu): pasek jak w Chrome --- */
+#chrome { position: fixed; z-index: 3; height: 44px; box-sizing: border-box; display: flex; align-items: center; gap: 10px; padding: 0 12px; background: #f1f3f4; border: 1px solid #dadce0; border-radius: 22px; box-shadow: 0 8px 28px rgba(18,28,60,.18); opacity: 0; pointer-events: none; font-family: var(--ui); }
+#chrome svg { display: block; flex: none; fill: none; stroke: #5f6368; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+#chrome .cnav { display: flex; gap: 8px; }
+#chrome .caddr { flex: 1; min-width: 0; height: 30px; border-radius: 15px; background: #e3e6ea; display: flex; align-items: center; gap: 8px; padding: 0 12px; font-size: 13px; color: #3c4043; white-space: nowrap; overflow: hidden; }
+#chrome .cext { display: flex; align-items: center; gap: 8px; }
+#chrome .cicon { position: relative; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; }
+#chrome .cicon .logo { width: 24px; height: 24px; border-radius: 6px; overflow: hidden; display: block; }
+#chrome .ring { position: absolute; inset: 0; border-radius: 50%; border: 2px solid rgba(26,115,232,.6); opacity: 0; }
+#chrome .cav { width: 26px; height: 26px; border-radius: 50%; background: #8e24aa; color: #fff; font-size: 12px; font-weight: 600; display: grid; place-items: center; }
+#chrome .ctip { position: absolute; top: 52px; right: 40px; padding: 6px 10px; border-radius: 6px; background: #3c4043; color: #fff; font-size: 12px; white-space: nowrap; opacity: 0; }
+</style>
+
+<div class="scene" id="scene">
+  <div class="blob a"></div><div class="blob b"></div>
+  <div class="stage" id="stage">
+    <div class="layer" id="L-base"><div class="hdr"><div class="logo"><img src="data:image/png;base64,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" alt="" width="36" height="36"></div><div><b>Automail</b><small>Szybkie wklejanie adresów w Gmailu</small></div></div></div>
+
+    <div class="layer" id="L-folders"><div class="f-title">Katalogi</div>
+      <div class="ft" style="background:#8fd8f7"><small>aktualnie</small><svg width="16" height="16" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Klasa 9E</div>
+      <div class="ft" style="background:#bfeab0"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Wyjazdy</div>
+      <div class="ft" style="background:#f6c8e3"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Firma</div>
+      <div class="f-new"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Stwórz<br>katalog</div></div>
+
+    <div class="layer" id="L-groups"><div class="g-title">Grupy</div>
+      <div class="gt" style="background:#ff6a00"><svg width="18" height="18" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6M16 4.5a3.5 3.5 0 0 1 0 7M18 14.5c2.2.7 3.5 2.6 3.5 5.5"/></svg>Rada rodziców</div>
+      <div class="gt" style="background:#8e24aa"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M22 2 11 13"/><path d="M22 2l-7 20-4-9-9-4z"/></svg>Wycieczka</div>
+      <div class="gt" style="background:#1fa8e0"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M3 20l6-10 4 6 3-4 5 8z"/></svg>Wyjazd zimowy</div>
+      <div class="g-new"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Stwórz grupę</div></div>
+
+    <div class="layer" id="L-main"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><div><small>Główna grupa</small><b>Klasa 9E</b></div></div>
+
+    <div class="layer" id="L-editor"><div class="lbl"><span>Wycieczka — adresy</span><span style="display:flex"><span class="btnw"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="m9 12 1.2 5 1.8-4.5 1.8 4.5 1.2-5"/></svg>Word</span><span class="pen"><svg width="13" height="13" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg></span></span></div>
+      <div class="ta">ewa.zielinska@example.com,<br>jan.wisniewski@example.com,<br>anna.nowak@example.com,<br>piotr.kowalski@example.com,<br>maria.lewandowska@example.com</div>
+      <div class="row"><div class="b1">Zapisz</div><div class="b2">Wyczyść</div></div><div class="ok">Zapisano automatycznie</div></div>
+
+    <div class="layer" id="L-word"><svg width="13" height="13" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="m9 12 1.2 5 1.8-4.5 1.8 4.5 1.2-5"/></svg>Rodzice9E.docx<i>×</i></div>
+
+    <div class="layer" id="L-drawer"><div class="dpanel" id="dpanel"><div class="h"><i></i><i></i><i></i><i></i><i></i></div><div class="t">Wszystkie maile<small>adresów: 128</small></div></div></div>
+
+    <div class="layer" id="L-foot"><svg width="14" height="14" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><span>Twoje adresy zostają na Twoim urządzeniu. Automail niczego nie wysyła i działa wyłącznie w Gmailu.</span></div>
+  </div>
+</div>
+
+
+<div id="gm" aria-hidden="true">
+  <div class="gtop"><span class="gl">Gmail</span><span class="gs"></span></div>
+  <div class="gwrap"><div class="gwin">
+    <div class="gbar"><span>Nowa wiadomość</span><span>– ⤢ ✕</span></div>
+    <div class="grow gto"><span class="glab">Do</span><div class="gchips" id="gchips"></div>
+      <div class="gpickwrap"><button class="gpill" id="gpill" type="button" tabindex="-1">Wybierz grupę ▾</button>
+        <div class="gpop" id="gpop">
+          <div class="gl1"><div class="gk">Katalogi</div>
+            <div class="gf" style="background:#c7ecfb;box-shadow:inset 4px 0 0 rgba(0,0,0,.45)"><small>aktualnie</small>Klasa 9E</div>
+            <div class="gf" style="background:#e2f5da">Wyjazdy</div>
+            <div class="gf" style="background:#fbe6f2">Firma</div></div>
+          <div class="gr1"><div class="gh">Wybierz grupę</div>
+            <div class="gpr"><span class="gb" style="background:#202124"><svg width="15" height="15" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span><span class="gn">Wszystkie maile</span><span class="gc">128</span></div>
+            <div style="height:6px"></div>
+            <div class="gpr"><span class="gb" style="background:#fff;border:1px solid #dadce0;color:#202124"><svg width="15" height="15" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span><span class="gn">Główna grupa Klasa 9E</span><span class="gc">25</span></div>
+            <div class="gpr"><span class="gb" style="background:#ff6a00;color:#fff"><svg width="15" height="15" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6M16 4.5a3.5 3.5 0 0 1 0 7M18 14.5c2.2.7 3.5 2.6 3.5 5.5"/></svg></span><span class="gn">Rada rodziców</span><span class="gc">12</span></div>
+            <div class="gpr" id="gsel"><span class="gb" style="background:#8e24aa;color:#fff"><svg width="15" height="15" viewBox="0 0 24 24"><path d="M22 2 11 13"/><path d="M22 2l-7 20-4-9-9-4z"/></svg></span><span class="gn">Wycieczka</span><span class="gc">5</span></div>
+            <div class="gpr"><span class="gb" style="background:#1fa8e0;color:#fff"><svg width="15" height="15" viewBox="0 0 24 24"><path d="M3 20l6-10 4 6 3-4 5 8z"/></svg></span><span class="gn">Wyjazd zimowy</span><span class="gc">8</span></div>
+          </div></div></div></div>
+    <div class="grow"><span class="glab">Temat</span><span class="gph">Wycieczka klasowa</span></div>
+    <div class="gbody">Dzień dobry,<br><br>w załączeniu szczegóły wycieczki.</div>
+    <div class="gfoot"><span class="gsend">Wyślij</span></div>
+  </div></div>
+</div>
+<div id="chrome" aria-hidden="true">
+  <div class="cnav"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg><svg width="18" height="18" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg><svg width="18" height="18" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.6M20 4v5h-5"/></svg></div>
+  <div class="caddr"><svg width="14" height="14" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><span>mail.google.com</span></div>
+  <div class="cext">
+    <svg width="18" height="18" viewBox="0 0 24 24"><path d="M10 4a2 2 0 1 1 4 0v2h4v4h-2a2 2 0 1 0 0 4h2v4h-4v-2a2 2 0 1 0-4 0v2H6v-4h2a2 2 0 1 0 0-4H6V6h4z"/></svg>
+    <span class="cicon" id="cicon"><b class="ring" id="cring"></b><i class="logo"><img src="data:image/png;base64,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" alt="" width="24" height="24"></i></span>
+    <span class="cav">M</span>
+    <svg width="18" height="18" viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.2"/><circle cx="12" cy="12" r="1.2"/><circle cx="12" cy="19" r="1.2"/></svg>
+  </div>
+  <div class="ctip" id="ctip">Automail</div>
+</div>
+<svg id="co" aria-hidden="true"></svg>
+<div id="notes" aria-live="off"></div>
+
+<div class="ctl"><button id="try" type="button">Wypróbuj</button><button id="pause" type="button">Pauza</button><button id="again" type="button">Od nowa</button></div>
+<div id="hint" role="status"></div>
+<div class="bar"><i id="prog"></i></div>
+
+<script>
+// Oś czasu (sekundy): wstęp, rozsunięcie, 8 reflektorów po 1,3 s, złożenie, zakończenie.
+const T = { explode: 1.7, spot: 4.2, step: 1.3, steps: 7, loop: 23.2 };
+T.spotEnd = T.spot + T.step * T.steps;           // 14.6
+T.back = T.spotEnd + 0.1;                         // zaczyna się składanie
+T.backEnd = T.back + 2.0;                         // 16.7
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const ease = (x) => { x = clamp(x); return x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
+const sm = (a, b, x) => ease((x - a) / (b - a));
+const lerp = (a, b, x) => a + (b - a) * x;
+
+// kolejność kroków i poziom głębokości warstw (0 = tył)
+const layers = [
+  { id: "L-base",    z: 0, dx: 0,   dy: 0,   dz: 0, lift: 0, sc: 0 },
+  { id: "L-folders", z: 1, dx: -46, dy: 6,   dz: 0 },
+  { id: "L-groups",  z: 1, dx: -16, dy: 10,  dz: 0 },
+  { id: "L-main",    z: 2, dx: -22, dy: -10, dz: 0 },
+  { id: "L-editor",  z: 1, dx: 34,  dy: 0,   dz: 0 },
+  { id: "L-word",    z: 1, dx: 34,  dy: 0,   dz: 6, lift: 0, sc: .03 },
+  { id: "L-drawer",  z: 2, dx: -22, dy: -10, dz: 6, lift: 0, sc: 0, follow: "L-main" },
+  { id: "L-foot",    z: 1, dx: 0,   dy: 38,  dz: 0 }
+];
+// które warstwy ma w sobie każdy krok napisu: 0 okno, 1 katalogi, 2 grupy, 3 główna grupa, 4 adresy, 5 Word, 6 wszystkie maile, 7 prywatność
+const order = ["L-folders", "L-groups", "L-main", "L-editor", "L-word", "L-drawer", "L-foot"];
+const el = Object.fromEntries(layers.map((l) => [l.id, document.getElementById(l.id)]));
+const stage = document.getElementById("stage");
+const NOTES = [
+  { id: "L-folders", a: [.5, .33],  t: "Katalogi",        d: "Klasa, firma, projekt. Każdy w swoim kolorze." },
+  { id: "L-groups",  a: [.5, .55],  t: "Grupy",           d: "Własne kolory i ikony. Możesz dodać swoje." },
+  { id: "L-main",    a: [.5, .5],   t: "Główna grupa",    d: "Wszystkie adresy katalogu naraz." },
+  { id: "L-editor",  a: [.5, .42],  t: "Adresy",          d: "Pisz lub wklejaj. Zapisuje się automatycznie." },
+  { id: "L-word",    a: [.5, .5],   t: "Word",            d: "Wczytaj plik .docx. Usuń go, a adresy znikną razem z nim." },
+  { id: "L-drawer",  a: [.5, .5],   t: "Wszystkie maile", d: "Ukryta zakładka. Wysuwasz ją myszką." },
+  { id: "L-foot",    a: [.3, .5],   t: "Prywatność",      d: "Twoje adresy zostają na Twoim urządzeniu." }
+];
+const NS = "http://www.w3.org/2000/svg";
+const co = document.getElementById("co"), notesBox = document.getElementById("notes");
+NOTES.forEach((n) => {
+  n.div = document.createElement("div"); n.div.className = "note";
+  const b = document.createElement("b"); b.textContent = n.t;
+  const sp = document.createElement("span"); sp.textContent = n.d;
+  n.div.append(b, sp); notesBox.appendChild(n.div);
+  n.line = document.createElementNS(NS, "line"); n.ring = document.createElementNS(NS, "circle"); n.dot = document.createElementNS(NS, "circle");
+  n.ring.setAttribute("class", "ring"); n.dot.setAttribute("class", "dot"); n.dot.setAttribute("r", 4.5);
+  co.append(n.line, n.ring, n.dot);
+});
+const dpanel = document.getElementById("dpanel");
+const gm = document.getElementById("gm"), gpop = document.getElementById("gpop"), gsel = document.getElementById("gsel"), gpill = document.getElementById("gpill");
+const MAILS = ["ewa.zielinska", "jan.wisniewski", "anna.nowak", "piotr.kowalski", "maria.lewandowska"];
+const CHCOL = ["#e8710a", "#1a73e8", "#188038", "#8e24aa", "#d93025"];
+const gchips = document.getElementById("gchips");
+MAILS.forEach((m, i) => { const c = document.createElement("span"); c.className = "gchip"; const a = document.createElement("i"); a.style.background = CHCOL[i]; a.textContent = m[0].toUpperCase(); c.append(a, m + "@example.com"); gchips.appendChild(c); });
+const gchipEls = [...gchips.children];
+const prog = document.getElementById("prog");
+const tiles = [...document.querySelectorAll("#L-groups .gt, #L-folders .ft")];
+
+function fit() { return Math.min(innerWidth / 880, innerHeight / 740); }
+
+const stepW = (id, t) => {
+  const a = T.spot + T.step * order.indexOf(id);
+  return sm(a - .12, a + .38, t) * (1 - sm(a + T.step - .38, a + T.step + .12, t));
+};
+const wOf = stepW;
+
+function render(t) {
+  const sp = t - T.spot;
+  // e: stopień rozsunięcia 0..1
+  const e = sm(T.explode, T.explode + 2.2, t) * (1 - sm(T.back, T.backEnd, t));
+  // dim: przyciemnienie tła przy reflektorach
+  const dim = sm(T.spot - .2, T.spot + .4, t) * (1 - sm(T.spotEnd - .3, T.spotEnd + .3, t));
+  const Z0 = T.backEnd + .1, Z1 = Z0 + 1.7, G = Z1;
+  const zoom = sm(Z0, Z1, t) * (1 - sm(T.loop - 1.0, T.loop - .5, t));
+  const intro = 1 - 0.07 * (1 - ease(t / 1.4)) - 0.07 * sm(T.loop - 1.4, T.loop, t);
+  const s = fit() * (1 + 0.1 * (1 - e)) * intro * (1 + zoom * 5.5);
+  stage.style.left = innerWidth > 900 ? "60%" : "50%";
+  const rx = e * 57, rz = e * -33 + Math.sin(t * 0.55) * 2.2 * e + (t > T.spot ? (t - T.spot) * 0.0 : 0);
+  stage.style.transform = `translateY(${lerp(0, 52, e)}px) scale(${s * lerp(1, 1.12, e)}) rotateX(${rx}deg) rotateZ(${rz}deg)`;
+
+  const so = clamp((1 - sm(Z0 + .8, Z1 - .2, t)) + sm(T.loop - .5, T.loop, t));
+  stage.style.opacity = so > .999 ? "" : so.toFixed(3);
+  layers.forEach((l, i) => {
+    const idx = order.indexOf(l.id);
+    const a = T.spot + T.step * idx;
+    const w = idx < 0 ? 0 : sm(a - .12, a + .38, t) * (1 - sm(a + T.step - .38, a + T.step + .12, t));
+    const node = el[l.id];
+    const wLift = l.follow ? wOf(l.follow, t) : w; // zakładka porusza się razem z kafelkiem „Główna grupa”
+    const lift = l.lift === undefined ? 1 : l.lift;
+    const tz = e * l.z * 44 + wLift * 105 * e * (l.follow ? 1 : lift) + e * (l.dz || 0);
+    const sc = 1 + (l.follow ? wLift : w) * (l.sc === undefined ? .22 : l.sc) * e + (l.follow ? wLift * .22 * e : 0);
+    const x = e * l.dx + (l.lift === 0 && !l.follow ? 0 : (l.follow ? wLift : w) * l.dx * .6 * e);
+    const y = e * l.dy;
+    node.style.transform = `translate3d(${x}px, ${y}px, ${tz}px) scale(${sc})`;
+    const off = dim * (1 - w);
+    node.style.filter = off > .02 ? `brightness(${(1 - off * .34).toFixed(3)}) blur(${(off * 1.2).toFixed(2)}px)` : "none";
+    const r = lerp(0, 14, e);
+    node.style.borderRadius = (l.id === "L-drawer" ? 0 : l.id === "L-word" ? 13 : r) + "px";
+    node.style.boxShadow = e < .01 && l.id !== "L-base" ? "none" :
+      `0 ${8 + e * 38}px ${20 + e * 64}px rgba(18,28,60,${.14 + e * .22}), 0 ${2 + e * 6}px ${6 + e * 10}px rgba(18,28,60,${.08 + e * .1})`;
+    if (l.id === "L-base") node.style.boxShadow = `0 ${18 + e * 34}px ${50 + e * 70}px rgba(18,28,60,${.2 + e * .12}), 0 0 0 1px rgba(0,0,0,.06)`;
+    if (l.id === "L-drawer") {
+      const open = sm(a + .05, a + .6, t) * (1 - sm(a + T.step - .55, a + T.step - .05, t));
+      dpanel.style.transform = `translateX(${(1 - open) * 138}px)`;
+      node.style.boxShadow = "none"; // zakładka nie ma poświaty
+    }
+  });
+  // lekki ruch kafelków przy rozsunięciu
+  tiles.forEach((n, i) => { n.style.transform = `translateX(${Math.sin(t * 1.1 + i) * 1.2 * e}px)`; });
+
+  // opisy ze strzałkami
+  const wide = innerWidth > 900;
+  NOTES.forEach((n, i) => {
+    const a = T.spot + T.step * i;
+    const v = sm(a - .05, a + .4, t) * (1 - sm(a + T.step - .35, a + T.step + .05, t));
+    const on = v > .01;
+    n.div.style.opacity = v.toFixed(3);
+    n.line.style.opacity = n.ring.style.opacity = n.dot.style.opacity = on ? 1 : 0;
+    if (!on) return;
+    const r = el[n.id].getBoundingClientRect();
+    const ax = r.left + r.width * n.a[0], ay = r.top + r.height * n.a[1];
+    const lw = n.div.offsetWidth, lh = n.div.offsetHeight;
+    const lx = wide ? Math.max(24, innerWidth * .05) : 16;
+    const ly = wide ? Math.min(Math.max(ay - lh / 2, 70), innerHeight - lh - 40) : innerHeight - lh - 36;
+    n.div.style.transform = `translate(${lx}px, ${ly}px)`;
+    const sx = wide ? lx + Math.min(lw, Math.max(n.div.firstChild.scrollWidth, n.div.lastChild.scrollWidth)) + 14 : lx + 6;
+    const sy = wide ? ly + lh / 2 : ly - 10;
+    const k = sm(a - .05, a + .6, t);                 // linia „wyrasta” ze znacznika
+    const ex = sx + (ax - sx) * k, ey = sy + (ay - sy) * k;
+    n.line.setAttribute("x1", sx); n.line.setAttribute("y1", sy); n.line.setAttribute("x2", ex); n.line.setAttribute("y2", ey);
+    n.dot.setAttribute("cx", ex); n.dot.setAttribute("cy", ey); n.dot.setAttribute("r", (4.5 * k).toFixed(2));
+    n.ring.setAttribute("cx", ex); n.ring.setAttribute("cy", ey); n.ring.setAttribute("r", (10 * k).toFixed(2));
+  });
+  // finał: okno Gmaila
+  const gOp = sm(Z0 + .9, Z1, t) * (1 - sm(T.loop - .7, T.loop, t));
+  gm.style.opacity = gOp.toFixed(3);
+  gm.style.transform = `scale(${(1 + .1 * (1 - sm(Z0 + .9, Z1 + .5, t))).toFixed(4)})`;
+  const po = sm(G + .1, G + .6, t) * (1 - sm(G + 2.4, G + 2.6, t));
+  gpop.style.opacity = po.toFixed(3); gpop.style.transform = `translateY(${((1 - po) * -6).toFixed(1)}px)`;
+  gsel.style.background = `rgba(26,115,232,${(.1 * sm(G + 1.4, G + 1.6, t)).toFixed(3)})`;
+  gpill.style.background = sm(G + .05, G + .15, t) * (1 - sm(G + 2.4, G + 2.6, t)) > .5 ? "#f6f9fe" : "#fff";
+  gchipEls.forEach((c, i) => { const k = sm(G + 2.55 + i * .16, G + 2.9 + i * .16, t); c.style.opacity = k.toFixed(3); c.style.transform = `scale(${(.85 + .15 * k).toFixed(3)})`; });
+  prog.style.width = (t / T.loop * 100).toFixed(2) + "%";
+}
+
+let t0 = performance.now(), paused = false, pausedAt = 0;
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* ===== tryb próbny ===== */
+const SVGI = {
+  folder: '<path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',
+  plus: '<path d="M12 5v14M5 12h14"/>',
+  users: '<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6M16 4.5a3.5 3.5 0 0 1 0 7M18 14.5c2.2.7 3.5 2.6 3.5 5.5"/>',
+  send: '<path d="M22 2 11 13"/><path d="M22 2l-7 20-4-9-9-4z"/>',
+  mountain: '<path d="M3 20l6-10 4 6 3-4 5 8z"/>',
+  doc: '<path d="M6 3h8l4 4v14H6z"/><path d="m9 12 1.2 5 1.8-4.5 1.8 4.5 1.2-5"/>',
+  pen: '<path d="M4 20h4L19 9l-4-4L4 16z"/>',
+  star: '<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/>',
+  brief: '<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/>',
+  mail: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>',
+  home: '<path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/>',
+  heart: '<path d="M12 20s-8-5-8-11a4.5 4.5 0 0 1 8-2.5A4.5 4.5 0 0 1 20 9c0 6-8 11-8 11z"/>',
+  bell: '<path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 21h4"/>',
+  calendar: '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>',
+  globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/>'
+};
+const USER_ICONS = {};
+const svgI = (n, sz) => {
+  if (USER_ICONS[n]) { const im = document.createElement("img"); im.src = USER_ICONS[n]; im.width = im.height = sz; im.style.cssText = "display:block;object-fit:contain;flex:none"; return im; }
+  const x = document.createElementNS(NS, "svg"); x.setAttribute("width", sz); x.setAttribute("height", sz); x.setAttribute("viewBox", "0 0 24 24"); x.innerHTML = SVGI[n]; return x; };
+const E = (tag, props = {}, kids = []) => {
+  const n = document.createElement(tag);
+  for (const [k, v] of Object.entries(props)) {
+    if (k === "style") Object.assign(n.style, v);
+    else if (k === "text") n.textContent = v;
+    else if (k.startsWith("on")) n.addEventListener(k.slice(2), v);
+    else n.setAttribute(k, v);
+  }
+  kids.forEach((c) => c && n.append(c));
+  return n;
+};
+const tint = (hex, a) => { const n = parseInt(hex.slice(1), 16); const m = (x) => Math.round(255 + (x - 255) * a); return `rgb(${m(n >> 16)},${m((n >> 8) & 255)},${m(n & 255)})`; };
+const COLORS = ["#f0089a", "#2cc0f5", "#26d100", "#ff6a00", "#6a0dc8", "#ffe600", "#e5251b", "#8d5a3b"];
+const FONT = "'Google Sans', 'Segoe UI', Roboto, Arial, sans-serif";
+const GICO = ["users", "send", "mountain", "star", "brief", "folder", "mail", "home", "heart", "bell", "calendar", "globe"];
+const iconNames = () => GICO.concat(Object.keys(USER_ICONS));
+const inkOn = (hex) => { const n = parseInt(hex.slice(1), 16); return (0.299 * (n >> 16) + 0.587 * ((n >> 8) & 255) + 0.114 * (n & 255)) > 160 ? "#202124" : "#fff"; };
+let savedColors = [], uicoN = 0;
+const mails = (a) => a.map((x) => x + "@example.com");
+const WYC = mails(["ewa.zielinska", "jan.wisniewski", "anna.nowak", "piotr.kowalski", "maria.lewandowska"]);
+const EMAIL_RE = /[^\s,;<>]+@[^\s,;<>]+/g;
+const emailsOf = (t) => t.match(EMAIL_RE) || [];
+const items = (t) => t.split(/[,;\n]+/).map((x) => x.trim()).filter(Boolean);
+const joinI = (a) => a.join(",\n");
+const uniq = (a) => [...new Set(a.map((x) => x.toLowerCase()))];
+const WORDS = [["Rodzice9E.docx", WYC], ["Nauczyciele.docx", mails(["a.kowalczyk", "m.nowicka", "j.zajac"])], ["Zebranie.docx", mails(["rodzic.jeden", "rodzic.dwa", "ewa.zielinska"])]];
+
+function initState() {
+  const G = (name, color, icon, arr, files = []) => ({ name, color, icon, text: joinI(arr), files });
+  const folders = [
+    { name: "Klasa 9E", color: "#8fd8f7", groups: [
+      G("Rada rodziców", "#ff6a00", "users", mails(["tomasz.mazur", "ola.krol", "pawel.sikora"])),
+      G("Wycieczka", "#8e24aa", "send", WYC, [{ name: "Rodzice9E.docx", emails: WYC.slice() }]),
+      G("Wyjazd zimowy", "#1fa8e0", "mountain", mails(["kasia.dudek", "marek.piatek", "ewa.zielinska", "bartek.lis"]))] },
+    { name: "Wyjazdy", color: "#bfeab0", groups: [G("Obóz letni", "#188038", "mountain", mails(["julia.wrona", "adam.kot"])), G("Rajd rowerowy", "#e8710a", "send", mails(["igor.sowa", "nina.gil"]))] },
+    { name: "Firma", color: "#f6c8e3", groups: [G("Zarząd", "#1a73e8", "brief", mails(["prezes", "dyrektor"])), G("Zespół", "#c2185b", "users", mails(["biuro", "sprzedaz", "wsparcie"]))] }
+  ];
+  folders.forEach((f) => { f.files = []; f.main = joinI(uniq(f.groups.flatMap((g) => emailsOf(g.text)))); });
+  return { folders, f: 0, g: 1, wn: 0 };
+}
+let S = initState();
+const allCount = () => uniq(S.folders.flatMap((f) => emailsOf(f.main).concat(f.groups.flatMap((g) => emailsOf(g.text))))).length;
+let BASE_ALL = allCount();
+const fo = () => S.folders[S.f];
+const gr = () => fo().groups[S.g];
+const isMain = () => S.g === "main";
+const getT = () => (isMain() ? fo().main : gr().text);
+const setT = (v) => { if (isMain()) fo().main = v; else gr().text = v; };
+const getFiles = () => (isMain() ? fo().files : gr().files);
+function syncMain() { // adresy z grup trafiają też do głównej grupy katalogu
+  const f = fo(); const have = new Set(emailsOf(f.main).map((x) => x.toLowerCase()));
+  const add = [];
+  f.groups.forEach((g) => emailsOf(g.text).forEach((e) => { if (!have.has(e.toLowerCase())) { have.add(e.toLowerCase()); add.push(e); } }));
+  if (add.length) f.main = joinI(items(f.main).concat(add));
+}
+let stEl = null, stTimer = null;
+function setStatus(msg, grey) { if (!stEl) return; stEl.textContent = msg; stEl.style.color = grey ? "#5f6368" : "#188038"; }
+
+function renderFolders() {
+  const L = el["L-folders"]; L.textContent = "";
+  L.append(E("div", { class: "f-title", text: "Katalogi" }));
+  const list = E("div", { class: "f-list" });
+  S.folders.forEach((f, i) => {
+    const on = i === S.f;
+    list.append(E("div", { class: "ft", title: f.name, style: { background: f.color, boxShadow: on ? "inset 4px 0 0 rgba(0,0,0,.45)" : "none" }, onclick: () => select(i, S.folders[i].groups.length ? 0 : "main") },
+      [on ? E("small", { text: "aktualnie" }) : null, svgI("folder", 16), E("span", { text: f.name })]));
+  });
+  L.append(list, E("div", { class: "f-new", onclick: () => openPanel("folder-new") }, [svgI("plus", 16), "Stwórz", E("br"), "katalog"]));
+}
+function renderGroups() {
+  const L = el["L-groups"]; L.textContent = "";
+  L.append(E("div", { class: "g-title", text: "Grupy" }));
+  const list = E("div", { class: "g-list" });
+  fo().groups.forEach((g, i) => {
+    list.append(E("div", { class: "gt", style: { background: g.color, boxShadow: i === S.g ? "inset 5px 0 0 rgba(0,0,0,.35)" : "none" }, onclick: () => select(S.f, i) }, [svgI(g.icon, 18), E("span", { text: g.name, style: { lineHeight: "1.15", overflowWrap: "anywhere" } })]));
+  });
+  L.append(list, E("div", { class: "g-new", onclick: () => openPanel("group-new") }, [svgI("plus", 16), "Stwórz grupę"]));
+}
+function renderMain() {
+  const L = el["L-main"]; L.textContent = "";
+  L.style.boxShadow = isMain() && live ? "inset 4px 0 0 rgba(0,0,0,.35)" : "";
+  L.append(svgI("folder", 18), E("div", {}, [E("small", { text: "Główna grupa" }), E("b", { text: fo().name })]));
+  L.onclick = () => { if (live) select(S.f, "main"); };
+}
+function renderEditor() {
+  const ed = el["L-editor"]; ed.textContent = "";
+  const main = isMain(), g = main ? null : gr();
+  const wbtn = E("button", { class: "btnw", type: "button", onclick: addWord }, [svgI("doc", 14), "Word"]);
+  const pen = main ? null : E("button", { class: "pen", type: "button", title: "Edytuj grupę", onclick: () => openPanel("group-edit") }, [svgI("pen", 13)]);
+  ed.append(E("div", { class: "lbl" }, [E("span", { text: main ? `Główna grupa — ${fo().name}` : `${g.name} — adresy` }), E("span", { style: { display: "flex" } }, [wbtn, pen])]));
+  const ta = E("textarea", { class: "ta", spellcheck: "false", placeholder: "jan@example.com, anna@example.com" });
+  ta.value = getT();
+  ta.style.background = main ? "#fff" : tint(g.color, .16);
+  ta.style.borderColor = main ? "#dadce0" : tint(g.color, .6);
+  ta.addEventListener("input", () => {
+    setT(ta.value); syncMain(); setStatus("Zapisywanie…", true); updDrawer();
+    clearTimeout(stTimer); stTimer = setTimeout(() => setStatus("Zapisano automatycznie"), 500);
+  });
+  const chips = E("div", { class: "chips" });
+  getFiles().forEach((f, i) => chips.append(E("span", { class: "wc", title: f.name }, [svgI("doc", 13), E("span", { text: f.name, style: { overflow: "hidden", textOverflow: "ellipsis" } }), E("i", { text: "×", onclick: () => removeFile(i) })])));
+  const save = E("button", { class: "b1", type: "button", text: "Zapisz", onclick: () => { setT(ta.value); syncMain(); setStatus(`Zapisano · adresów: ${uniq(emailsOf(ta.value)).length}`); updDrawer(); } });
+  const clr = E("button", { class: "b2", type: "button", text: "Wyczyść", onclick: () => { ta.value = ""; setT(""); getFiles().length = 0; renderEditor(); setStatus("Pole wyczyszczone", true); updDrawer(); } });
+  stEl = E("div", { class: "ok", text: "Zapisano automatycznie" });
+  ed.append(ta, chips, E("div", { class: "row" }, [save, clr]), stEl);
+}
+function updDrawer() { const sm_ = dpanel.querySelector("small"); if (sm_ && live) sm_.textContent = "adresów: " + (128 + allCount() - BASE_ALL); }
+function renderAll() { renderFolders(); renderGroups(); renderMain(); renderEditor(); }
+function select(f, g) { closePanel(); S.f = f; S.g = g; renderAll(); }
+
+function addWord() {
+  const [nm, em] = WORDS[S.wn++ % WORDS.length];
+  const files = getFiles(); const dup = files.filter((x) => x.name.replace(/ \(\d+\)/, "") === nm).length;
+  files.push({ name: dup ? nm.replace(".docx", ` (${dup + 1}).docx`) : nm, emails: em.slice() });
+  setT(joinI(items(getT()).concat(em))); syncMain(); renderEditor(); setStatus(`Wczytano z pliku · adresów: ${em.length}`); updDrawer();
+}
+function removeFile(i) {
+  const files = getFiles(); const f = files.splice(i, 1)[0]; if (!f) return;
+  const arr = items(getT());
+  f.emails.forEach((e) => { const k = arr.findIndex((x) => x.toLowerCase() === e.toLowerCase()); if (k >= 0) arr.splice(k, 1); });
+  setT(joinI(arr)); renderEditor(); setStatus("Plik usunięty razem z adresami", true); updDrawer();
+}
+
+let panel = null;
+function closePanel() { if (panel) { panel.remove(); panel = null; } }
+function openPanel(kind) {
+  closePanel();
+  const isF = kind === "folder-new", edit = kind === "group-edit", g = edit ? gr() : null;
+  let color = edit ? g.color : COLORS[(isF ? S.folders.length : fo().groups.length) % COLORS.length];
+  let icn = edit ? g.icon : GICO[fo().groups.length % GICO.length];
+  const inputCss = { width: "100%", boxSizing: "border-box", padding: "9px 11px", border: "1px solid #dadce0", borderRadius: "10px", font: `14px ${FONT}`, outline: "none", color: "#202124", background: "#fff" };
+  const pvIcon = E("span", { style: { display: "inline-flex" } }), pvName = E("span", { style: { flex: "1", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" } });
+  const preview = E("div", { style: { display: "flex", alignItems: "center", gap: "8px", height: "34px", padding: "0 10px", font: `600 13px ${FONT}` } }, [pvIcon, pvName]);
+  const nameInput = E("input", { type: "text", maxlength: "40", placeholder: isF ? "np. Klasa 9E" : "Do czego jest, np. Wycieczka", style: inputCss });
+  if (edit) nameInput.value = g.name;
+  nameInput.addEventListener("focus", () => { nameInput.style.borderColor = "#1a73e8"; nameInput.style.boxShadow = "0 0 0 2px rgba(26,115,232,.2)"; });
+  nameInput.addEventListener("blur", () => { nameInput.style.borderColor = "#dadce0"; nameInput.style.boxShadow = "none"; });
+  const noMd = (e) => e.preventDefault();
+  // ikony
+  const iconGrid = E("div", { style: { display: "flex", flexWrap: "wrap", gap: "4px", maxHeight: "118px", overflowY: "auto", padding: "2px" } });
+  const iconMsg = E("div", { style: { fontSize: "11px", color: "#5f6368", minHeight: "14px", marginTop: "4px" } });
+  let iconBtns = [];
+  function renderIcons() {
+    iconGrid.textContent = "";
+    iconBtns = iconNames().map((id) => {
+      const b = E("button", { type: "button", style: { width: "28px", height: "28px", padding: "0", display: "inline-flex", alignItems: "center", justifyContent: "center", border: "1px solid #dadce0", borderRadius: "6px", background: "#fff", color: "#3c4043", cursor: "pointer" }, onmousedown: noMd, onclick: (e) => { e.preventDefault(); icn = id; paint(); } }, [svgI(id, 16)]);
+      b._id = id; iconGrid.append(b); return b;
+    });
+  }
+  renderIcons();
+  const iconFile = E("input", { type: "file", accept: ".svg,.png,.jpg,.jpeg,.webp,.gif,image/*", multiple: "", style: { display: "none" } });
+  iconFile.addEventListener("change", () => {
+    let ok = 0;
+    [...iconFile.files].forEach((f) => { if (/^image\//.test(f.type)) { const id = "u" + ++uicoN; USER_ICONS[id] = URL.createObjectURL(f); icn = id; ok++; } });
+    iconFile.value = ""; iconMsg.textContent = ok ? `Dodano ikon: ${ok}.` : "Nie dodano ikony. Obsługiwane formaty: SVG, PNG, JPG, WebP, GIF.";
+    renderIcons(); paint();
+  });
+  const smallBtn = (text, title, fn) => E("button", { type: "button", title, text, style: { padding: "3px 8px", border: "1px solid #dadce0", borderRadius: "6px", background: "#fff", color: "#1a73e8", font: `600 11px ${FONT}`, cursor: "pointer" }, onmousedown: noMd, onclick: fn });
+  const addIconBtn = smallBtn("＋ dodaj ikonę", "Dodaj własną ikonę z pliku (SVG, PNG, JPG, WebP, GIF)", (e) => { e.preventDefault(); iconFile.click(); });
+  addIconBtn.style.marginTop = "6px";
+  // kolory
+  const swCss = { width: "22px", height: "22px", padding: "0", border: "2px solid #fff", borderRadius: "50%", cursor: "pointer" };
+  const swBtns = COLORS.map((c) => { const b = E("button", { type: "button", title: c, style: { ...swCss, background: c }, onmousedown: noMd, onclick: (e) => { e.preventDefault(); color = c; paint(); } }); b._c = c; return b; });
+  const custom = E("input", { type: "color", class: "gm-cc", title: "Własny kolor" }); custom.value = color;
+  custom.addEventListener("input", () => { color = custom.value; paint(); });
+  const savedBox = E("span", { style: { display: "contents" } });
+  function renderSaved() {
+    savedBox.textContent = "";
+    savedColors.forEach((c) => {
+      const b = E("button", { type: "button", title: c + " (zapisany kolor)", style: { ...swCss, background: c }, onmousedown: noMd, onclick: (e) => { e.preventDefault(); color = c; paint(); } }); b._c = c;
+      const x = E("button", { type: "button", class: "gm-x", title: "Usuń zapisany kolor", text: "×", onmousedown: noMd, onclick: (e) => { e.preventDefault(); e.stopPropagation(); savedColors = savedColors.filter((v) => v !== c); renderSaved(); paint(); } });
+      savedBox.append(E("span", { class: "gm-sv" }, [b, x]));
+    });
+  }
+  const saveColorBtn = smallBtn("＋ zapisz kolor", "Zapisz wybrany kolor, żeby użyć go ponownie", (e) => {
+    e.preventDefault(); const c = color.toLowerCase();
+    if (!/^#[0-9a-f]{6}$/.test(c) || COLORS.includes(c) || savedColors.includes(c)) return;
+    savedColors = [...savedColors, c].slice(-24); renderSaved(); paint();
+  });
+  const swRow = E("div", { style: { display: "flex", gap: "7px", flexWrap: "wrap", alignItems: "center", padding: "2px" } }, [...swBtns, savedBox, custom, saveColorBtn]);
+  renderSaved();
+  const css = E("style", { text: ".gm-cc{width:26px;height:26px;padding:0;border:0;background:none;cursor:pointer;border-radius:50%}.gm-cc::-webkit-color-swatch-wrapper{padding:0}.gm-sv{position:relative;display:inline-flex}.gm-sv .gm-x{display:none;position:absolute;top:-6px;right:-6px;width:14px;height:14px;border:0;border-radius:50%;background:#202124;color:#fff;font:11px/14px sans-serif;padding:0;cursor:pointer}.gm-sv:hover .gm-x{display:block}.gm-cc::-webkit-color-swatch{border:2px solid #fff;border-radius:50%;box-shadow:0 0 0 1px #dadce0}" });
+  function paint() {
+    preview.style.background = color; preview.style.color = inkOn(color);
+    pvIcon.textContent = ""; pvIcon.append(svgI(isF ? "folder" : icn, 18));
+    pvName.textContent = nameInput.value.trim() || (isF ? "Nazwa katalogu" : "Nazwa grupy");
+    iconBtns.forEach((b) => { const on = b._id === icn; b.style.boxShadow = on ? `0 0 0 2px ${color}` : "none"; b.style.background = on ? tint(color, .18) : "#fff"; });
+    const lc = color.toLowerCase(), preset = COLORS.includes(lc) || savedColors.includes(lc);
+    swBtns.forEach((b) => (b.style.boxShadow = b._c === lc ? "0 0 0 2px #202124" : "0 0 0 1px #dadce0"));
+    savedBox.querySelectorAll("button[title$='(zapisany kolor)']").forEach((b) => (b.style.boxShadow = b._c === lc ? "0 0 0 2px #202124" : "0 0 0 1px #dadce0"));
+    saveColorBtn.style.display = /^#[0-9a-f]{6}$/.test(lc) && !preset ? "" : "none";
+    if (/^#[0-9a-f]{6}$/i.test(color)) custom.value = color;
+    custom.style.boxShadow = preset ? "none" : "0 0 0 2px #202124";
+  }
+  const submit = () => {
+    const name = nameInput.value.trim();
+    if (isF) { S.folders.push({ name: name || `Katalog ${S.folders.length + 1}`, color: tint(color, .45), groups: [], files: [], main: "" }); closePanel(); select(S.folders.length - 1, "main"); }
+    else if (edit) { g.name = name || g.name; g.color = color; g.icon = icn; closePanel(); renderAll(); }
+    else { fo().groups.push({ name: name || `Grupa ${fo().groups.length + 1}`, color, icon: icn, text: "", files: [] }); closePanel(); select(S.f, fo().groups.length - 1); }
+  };
+  nameInput.addEventListener("input", paint);
+  nameInput.addEventListener("keydown", (e) => { e.stopPropagation(); if (e.key === "Enter") { e.preventDefault(); submit(); } if (e.key === "Escape") closePanel(); });
+  const btnBase = { padding: "7px 14px", font: `600 13px ${FONT}`, borderRadius: "6px", cursor: "pointer" };
+  const btns = [E("button", { type: "button", text: edit ? "Zapisz" : "Utwórz", style: { ...btnBase, border: "1px solid #1a73e8", background: "#1a73e8", color: "#fff" }, onclick: submit })];
+  const cancelB = E("button", { type: "button", text: "Anuluj", style: { ...btnBase, border: "1px solid #dadce0", background: "#fff", color: "#1a73e8" }, onclick: closePanel });
+  if (edit) { btns.push(E("button", { type: "button", text: "Usuń", style: { ...btnBase, border: "1px solid #dadce0", background: "#fff", color: "#b3261e" }, onclick: () => { fo().groups.splice(S.g, 1); closePanel(); select(S.f, fo().groups.length ? 0 : "main"); } })); cancelB.style.marginLeft = "auto"; }
+  btns.push(cancelB);
+  const lab = { fontSize: "13px", fontWeight: "600", color: "#202124", marginBottom: "6px" };
+  const root = E("div", { style: { padding: "12px", display: "flex", flexDirection: "column", gap: "12px", font: `13px ${FONT}`, color: "#202124", textAlign: "left" } }, [
+    css, E("div", { style: { fontSize: "12px", fontWeight: "600", color: "#5f6368" }, text: edit ? "Edytuj grupę" : isF ? "Nowy katalog" : "Nowa grupa" }), preview,
+    E("div", {}, [E("div", { style: lab, text: isF ? "Nazwa katalogu" : "Nazwa grupy" }), nameInput]),
+    E("div", {}, [E("div", { style: lab, text: "Kolor" }), swRow]),
+    isF ? null : E("div", {}, [E("div", { style: lab, text: "Ikona" }), iconGrid, addIconBtn, iconFile, iconMsg]),
+    E("div", { style: { display: "flex", gap: "8px" } }, btns)]);
+  paint();
+  panel = E("div", { id: "lpanel" }, [root]);
+  stage.append(panel); nameInput.focus();
+}
+
+// czarna zakładka „Wszystkie maile”: klik albo przeciąganie
+let live = false, drawerOpen = false;
+function setDrawer(o) { drawerOpen = o; dpanel.style.transform = `translateX(${o ? 0 : 138}px)`; }
+dpanel.addEventListener("pointerdown", (ev) => {
+  if (!live) return;
+  const x0 = ev.clientX, start = drawerOpen ? 0 : 138, k = stage.getBoundingClientRect().width / 592 || 1; let moved = 0;
+  dpanel.setPointerCapture(ev.pointerId); dpanel.style.transition = "none";
+  const mv = (e) => { const dx = (e.clientX - x0) / k; moved = Math.max(moved, Math.abs(dx)); dpanel.style.transform = `translateX(${Math.min(138, Math.max(0, start + dx))}px)`; };
+  const up = (e) => {
+    dpanel.removeEventListener("pointermove", mv); dpanel.removeEventListener("pointerup", up);
+    dpanel.style.transition = "transform .38s cubic-bezier(.2,.8,.2,1)";
+    if (moved < 4) setDrawer(!drawerOpen); else setDrawer(Math.min(138, Math.max(0, start + (e.clientX - x0) / k)) < 69);
+  };
+  dpanel.addEventListener("pointermove", mv); dpanel.addEventListener("pointerup", up);
+});
+renderAll();
+
+const tryBtn = document.getElementById("try"), pauseBtn = document.getElementById("pause"), hint = document.getElementById("hint");
+let toastT = null;
+function toast(msg) { hint.textContent = msg; hint.classList.add("show"); clearTimeout(toastT); toastT = setTimeout(() => hint.classList.remove("show"), 2200); }
+function enterLive() {
+  if (!introDone) endIntro();
+  live = true; paused = true; pausedAt = 1.6; document.body.classList.add("live");
+  S = initState(); BASE_ALL = allCount(); renderAll(); render(1.6);
+  dpanel.style.transition = "transform .38s cubic-bezier(.2,.8,.2,1)"; setDrawer(false); updDrawer();
+  pauseBtn.hidden = true; toast("Tryb próbny włączony"); tryBtn.textContent = "Wróć do trailera";
+}
+function exitLive() {
+  closePanel(); live = false; document.body.classList.remove("live");
+  S = initState(); renderAll(); dpanel.style.transition = ""; dpanel.querySelector("small").textContent = "adresów: 128";
+  pauseBtn.hidden = false; pauseBtn.textContent = "Pauza"; toast("Tryb próbny wyłączony"); tryBtn.textContent = "Wypróbuj";
+  paused = false; t0 = performance.now();
+}
+
+
+// intro (jednorazowe): pasek jak w Chrome, ikona rozszerzenia „klika się sama”, wyskakuje okno
+const INTRO = 3.0;
+const chromeEl = document.getElementById("chrome"), cicon = document.getElementById("cicon"), cring = document.getElementById("cring"), ctip = document.getElementById("ctip");
+let introDone = reduce, introT0 = performance.now(), introFixed = null;
+if (!introDone) document.body.classList.add("intro");
+function introRender(ti) {
+  render(0);
+  const r0 = el["L-base"].getBoundingClientRect();
+  const SH = 66;
+  const W = Math.min(r0.width + 260, innerWidth - 16);
+  let right = Math.min(r0.right + 57, innerWidth - 8);
+  chromeEl.style.width = W + "px"; chromeEl.style.left = Math.max(8, right - W) + "px"; chromeEl.style.top = (r0.top + 8) + "px";
+  const a = sm(0, .4, ti), out = 1 - sm(2.4, 3.0, ti);
+  chromeEl.style.opacity = (a * out).toFixed(3);
+  chromeEl.style.transform = `translateY(${((1 - a) * -10).toFixed(1)}px)`;
+  const hov = sm(.5, .7, ti) * (1 - sm(1.0, 1.1, ti));
+  const press = sm(1.0, 1.12, ti) * (1 - sm(1.12, 1.3, ti));
+  const open = sm(1.1, 1.3, ti);
+  cicon.style.background = hov > .01 && open < .5 ? `rgba(0,0,0,${(.08 * hov).toFixed(3)})` : `rgba(26,115,232,${(.16 * open).toFixed(3)})`;
+  cicon.style.transform = `scale(${(1 - .16 * press).toFixed(3)})`;
+  const rp = sm(1.0, 1.5, ti); cring.style.opacity = ((1 - rp) * .8 * (rp > 0 ? 1 : 0)).toFixed(3); cring.style.transform = `scale(${(1 + rp * 1.2).toFixed(3)})`;
+  ctip.style.opacity = hov.toFixed(3);
+  const p = sm(1.1, 1.5, ti), dy = SH * (1 - sm(2.4, 3.0, ti));
+  stage.style.opacity = p >= .999 ? "" : p.toFixed(3);
+  stage.style.transform = `translateY(${(dy - (1 - p) * 12).toFixed(1)}px) scale(${(.95 + .05 * p).toFixed(4)}) ` + stage.style.transform;
+}
+function endIntro() { introDone = true; document.body.classList.remove("intro"); chromeEl.style.opacity = 0; chromeEl.style.display = "none"; }
+window.__introSeek = (ti) => { introFixed = ti; introDone = false; chromeEl.style.display = ""; };
+function tick(now) {
+  if (!introDone) {
+    const ti = introFixed !== null ? introFixed : (now - introT0) / 1000;
+    if (ti >= INTRO) { endIntro(); t0 = now; }
+    else { introRender(ti); requestAnimationFrame(tick); return; }
+  }
+  if (!paused) render(((now - t0) / 1000) % T.loop);
+  requestAnimationFrame(tick);
+}
+document.getElementById("pause").addEventListener("click", (ev) => {
+  paused = !paused;
+  if (paused) pausedAt = ((performance.now() - t0) / 1000) % T.loop; else t0 = performance.now() - pausedAt * 1000;
+  ev.currentTarget.textContent = paused ? "Wznów" : "Pauza";
+});
+tryBtn.addEventListener("click", () => (live ? exitLive() : enterLive()));
+document.getElementById("again").addEventListener("click", () => {
+  if (live) { exitLive(); return; }
+  if (!introDone) endIntro(); t0 = performance.now(); pausedAt = 0; if (paused) render(0); });
+addEventListener("keydown", (ev) => { if (ev.code === "Space" && !live && !/INPUT|TEXTAREA/.test(ev.target.tagName)) { ev.preventDefault(); document.getElementById("pause").click(); } });
+addEventListener("resize", () => render(paused ? pausedAt : ((performance.now() - t0) / 1000) % T.loop));
+window.__seek = (t) => { if (!introDone) endIntro(); paused = true; pausedAt = t; render(t); };
+if (reduce) { paused = true; pausedAt = T.spot + .5; document.getElementById("pause").hidden = true; render(pausedAt); requestAnimationFrame(tick); }
+else requestAnimationFrame(tick);
+</script>
+
+</body></html>
